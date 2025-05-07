@@ -1,7 +1,7 @@
 @props([
     'title',
     'description',
-    'subtitle',
+    'subtitle'=>'',
 ])
 
 <div class="flex w-full flex-col text-center">
