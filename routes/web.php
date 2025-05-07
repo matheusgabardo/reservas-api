@@ -27,8 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-// Rotas de login/logout
-Route::post('/login', [Controllers\AuthController::class, 'login']);
+// Rotas de logout
 Route::match(['get', 'post'], '/logout', [Controllers\AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 // Rotas de criação de usuário
