@@ -8,7 +8,7 @@ use App\Http\Controllers\admin\DashboardController;
 
 // Redireciona home para login
 Route::get('/', fn() => redirect('/login'))->name('home');
-Route::get('/api-docs', fn() => view('api_endpoints'));
+// Route::get('/api-docs', fn() => view('api_endpoints'));
 
 // Rotas que precisam estar logadas
 Route::middleware('auth')
