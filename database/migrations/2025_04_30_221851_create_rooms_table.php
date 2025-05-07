@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('location_name');
             $table->string('address');
             $table->integer('capacity');
-            $table->decimal('hourly_rate', 8, 2);
             $table->text('description')->nullable();
             $table->tinyInteger('rating')->default(0);
             $table->string('image')->nullable();

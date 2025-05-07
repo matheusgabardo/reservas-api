@@ -19,6 +19,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', [Controllers\admin\UsersController::class, 'index'])->name('admin.users');
     Route::delete('/users/delete/{user}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/rooms', [Controllers\admin\RoomsController::class, 'index'])->name('admin.rooms');
+    Route::post('/rooms', [Controllers\admin\RoomsController::class, 'store'])->name('admin.rooms.store');
+    Route::delete('/rooms/{room}', [Controllers\admin\RoomsController::class, 'destroy'])->name('admin.rooms.destroy');
+
 });
 
 // Rotas de login/logout

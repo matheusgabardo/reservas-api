@@ -15,7 +15,6 @@ class Room extends Model
         'location_name',
         'address',
         'capacity',
-        'hourly_rate',
         'description',
         'rating',
         'image',
