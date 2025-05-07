@@ -6,6 +6,7 @@
                 <button onclick="this.parentElement.style.display='none'" class="text-xl font-bold text-gray-600">&times;</button>
             </div>
         @endif
+    
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
@@ -30,7 +31,7 @@
                                         <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="px-4 py-1 rounded-sm bg-stone-950 text-white hover:bg-stone-500">
+                                            <button type="submit" class="px-4 py-1 rounded-sm bg-stone-950 text-white hover:bg-stone-500 cursor-pointer">
                                                 Excluir
                                             </button>
                                         </form>
@@ -80,7 +81,14 @@
                 <input type="email" name="email" id="email" required
                     class="w-full px-4 py-2 bg-zinc-700 text-white border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
                 </div>
-        
+                <div>
+                    <label for="role" class="block text-sm font-medium text-zinc-300 mb-1">Tipo de Usuário</label>
+                    <select name="role" id="role" required
+                        class="w-full px-4 py-2 bg-zinc-700 text-white border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="admin">Administrador</option>
+                        <option value="user">Usuário</option>
+                    </select>
+                </div>
                 <div>
                 <label for="password" class="block text-sm font-medium text-zinc-300 mb-1">Senha</label>
                 <input type="password" name="password" id="password" required

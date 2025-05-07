@@ -8,32 +8,30 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function createAdmin()
-    {
-        return view('admin.users.createAdmin');
-    }
 
     public function storeAdmin(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+            'role' => 'required|in:admin,user', 
         ]);
-
-        $admin = User::create([
+    
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 'admin',
+            'role' => $request->role,
         ]);
-
+    
         return redirect()->route('admin.users')->with('status', 'Admin cadastrado com sucesso!');
     }
+    
 
     public function index(Request $request)
     {
-        $users = User::all(); // ou use paginação com paginate(10)
+        $users = User::all();
         return view('admin.users.index', [
             'title' => 'Admin - Usuários',
             'users' => $users,
