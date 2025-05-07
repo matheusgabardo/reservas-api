@@ -17,7 +17,7 @@ return new class extends Migration
             $table->time('reservation_time');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('room_id')->constrained()->onDelete('cascade');
-            $table->enum('status', ['pendente', 'confirmado', 'concluido', 'cancelado'])->default('pendente');
+            $table->enum('status', ['pendente', 'concluido', 'cancelado'])->default('pendente');
             $table->timestamps();
         });
     }
