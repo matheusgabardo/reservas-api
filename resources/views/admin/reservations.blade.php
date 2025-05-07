@@ -32,6 +32,7 @@
                                     <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->room->room_name }}</td>
                                     <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->status }}</td>
                                     <td class="whitespace-nowrap  px-6 py-4">
+                                        <!-- TODO ajustar reserva disponivel para cancelamento-->
                                         <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

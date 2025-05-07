@@ -1,4 +1,4 @@
-<x-layouts.app :title="$title">
+<x-layouts.app :title="__('Usuários')">
     <div class="flex flex-col">
         @if (session('status'))
             <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg flex justify-between items-center">

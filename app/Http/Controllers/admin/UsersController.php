@@ -25,7 +25,7 @@ class UsersController extends Controller
             'role' => $request->role,
         ]);
     
-        return redirect()->route('admin.users')->with('status', 'Admin cadastrado com sucesso!');
+        return redirect()->route('admin.users')->with('status', 'Usuário cadastrado com sucesso!');
     }
     
 

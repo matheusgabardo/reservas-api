@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="grid gap-4 md:grid-cols-4 lg:grid-cols-2">
-      @php $charts = ['Status','Reservas (7 dias)']; @endphp
+      @php $charts = ['Status das reservas','Reservas (7 dias)']; @endphp
       @foreach (['chartStatus','chartLast7'] as $i => $canvasId)
         <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
           {{-- Pattern SVG de fundo --}}
@@ -13,7 +13,7 @@
             <rect stroke="none" fill="url(#pattern-{{ $i }})" width="100%" height="100%"></rect>
           </svg>
           {{-- Conteúdo do card --}}
-          <div class="relative z-10 flex flex-col max-h-[90%] p-4 items-center">
+          <div class="relative z-10 flex flex-col max-h-[90%]  p-4 items-center">
             <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ $charts[$i] }}</h3>
             <canvas id="{{ $canvasId }}" class="flex-1"></canvas>
           </div>

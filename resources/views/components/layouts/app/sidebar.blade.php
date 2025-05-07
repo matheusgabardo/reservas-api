@@ -7,7 +7,7 @@
         <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('admin.dashboard') }}" class="mr-5 flex items-center space-x-2 flex-col w-[80%]" wire:navigate>
+            <a href="{{ route('admin.dashboard') }}" class="mr-5 flex items-center space-x-2 flex-col w-[80%]">
                 <img src="{{asset('assets/images/bbroom-logo.png') }}" alt="Image" />
                 <small>Best rusiness room</small>
             </a>
