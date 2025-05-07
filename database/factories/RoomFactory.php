@@ -13,7 +13,6 @@ class RoomFactory extends Factory
     {
         return [
             'room_name' => $this->faker->word,
-            'location_name' => $this->faker->company,
             'address' => $this->faker->address,
             'capacity' => $this->faker->numberBetween(1, 50),
             'description' => $this->faker->sentence,

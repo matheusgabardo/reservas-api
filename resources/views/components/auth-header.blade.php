@@ -5,7 +5,9 @@
 ])
 
 <div class="flex w-full flex-col text-center">
-    <flux:heading size="xl">{{ $title }}</flux:heading>
+    <div class="flex justify-center">
+        <img class="w-[150px]" src="{{asset('assets/images/bbroom-logo.png') }}" alt="Image" />
+    </div>
     <flux:heading>{{ $subtitle }}</flux:heading>
     <flux:subheading>{{ $description }}</flux:subheading>
 </div>

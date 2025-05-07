@@ -118,6 +118,7 @@
         </flux:sidebar>
 
         {{ $slot }}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         @fluxScripts
     </body>

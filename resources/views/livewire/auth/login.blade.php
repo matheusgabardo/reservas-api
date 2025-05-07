@@ -84,31 +84,31 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <!-- Email Address -->
         <flux:input
             wire:model="email"
-            :label="__('E-mail address')"
+            :label="__('Seu e-mail')"
             type="email"
             required
             autofocus
             autocomplete="email"
-            placeholder="email@example.com"
+            placeholder="email@exemplo.com"
         />
 
         <!-- Password -->
         <div class="relative">
             <flux:input
                 wire:model="password"
-                :label="__('Password')"
+                :label="__('Sua senha')"
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
+                :placeholder="__('*********')"
             />
         </div>
 
         <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
+        <flux:checkbox wire:model="remember" :label="__('Lembrar seu login')" />
 
         <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Entrar') }}</flux:button>
+            <flux:button variant="primary" type="submit" class="w-full bg-zinc-400 cursor-pointer">{{ __('Entrar') }}</flux:button>
         </div>
     </form>
 </div>

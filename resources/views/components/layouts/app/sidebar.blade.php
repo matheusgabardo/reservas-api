@@ -7,16 +7,17 @@
         <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('admin.dashboard') }}" class="mr-5 flex items-center space-x-2" wire:navigate>
-                BBRoom - painel
+            <a href="{{ route('admin.dashboard') }}" class="mr-5 flex items-center space-x-2 flex-col w-[80%]" wire:navigate>
+                <img src="{{asset('assets/images/bbroom-logo.png') }}" alt="Image" />
+                <small>Best rusiness room</small>
             </a>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Acessos')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>Home</flux:navlist.item>
-                    <flux:navlist.item icon="book-open-text" :href="route('admin.reservations')" :current="request()->routeIs('admin.reservations')" wire:navigate>Reservas</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('admin.users')" :current="request()->routeIs('admin.users')" wire:navigate>Usuários</flux:navlist.item>
-                    <flux:navlist.item icon="briefcase" :href="route('admin.rooms')" :current="request()->routeIs('admin.rooms')" wire:navigate>Salas</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')">Home</flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" :href="route('admin.reservations')" :current="request()->routeIs('admin.reservations')">Reservas</flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('admin.users')" :current="request()->routeIs('admin.users')">Usuários</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('admin.rooms')" :current="request()->routeIs('admin.rooms')">Salas</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
