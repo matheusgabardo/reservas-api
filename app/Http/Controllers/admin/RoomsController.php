@@ -36,7 +36,7 @@ class RoomsController extends Controller
             'capacity' => $request->capacity,
             'description' => $request->description,
             'rating' => $request->rating,
-            'image' => $request->image ? $request->file('image')->store('rooms') : null, // Armazenando a imagem
+            'image' => $request->image ? $request->file('image')->store('rooms', 'public'): null, // Armazenando a imagem
         ]);
 
         return redirect()->route('admin.rooms')->with('status', 'Sala cadastrada com sucesso!');

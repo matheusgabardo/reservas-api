@@ -1,37 +1,49 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\admin\ReservationsController;
 use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\RoomsController;
+use App\Http\Controllers\admin\DashboardController;
 
-Route::get('/', function () {
-    return redirect('/login');
-})->name('home');
+// Redireciona home para login
+Route::get('/', fn() => redirect('/login'))->name('home');
+Route::get('/api-docs', fn() => view('api_endpoints'));
 
-Route::get('/api-docs', function () {
-    return view('api_endpoints');
-});
+// Rotas que precisam estar logadas
+Route::middleware('auth')
+    ->prefix('dashboard')      // prefixo de URL: /dashboard/...
+    ->name('admin.')           // prefixo de nome: admin.*
+    ->group(function () {
+        // GET /dashboard          → admin.dashboard
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Middleware de autenticação
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [Controllers\admin\DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/reservations', [Controllers\admin\ReservationsController::class, 'index'])->name('admin.reservations');
-    Route::get('/users', [Controllers\admin\UsersController::class, 'index'])->name('admin.users');
-    Route::delete('/users/delete/{user}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
-    Route::get('/users/create', [UsersController::class, 'createAdmin'])->name('admin.users.create');
-    Route::get('/rooms', [Controllers\admin\RoomsController::class, 'index'])->name('admin.rooms');
-    Route::post('/rooms', [Controllers\admin\RoomsController::class, 'store'])->name('admin.rooms.store');
-    Route::delete('/rooms/{room}', [Controllers\admin\RoomsController::class, 'destroy'])->name('admin.rooms.destroy');
-    Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('admin.reservations.destroy');
+        // GET /dashboard/reservations  → admin.reservations
+        Route::get('/reservations', [ReservationsController::class, 'index'])->name('reservations');
+        // DELETE /dashboard/reservations/{reservation} → admin.reservations.destroy
+        Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('reservations.destroy');
 
-});
+        // GET /dashboard/users     → admin.users
+        Route::get('/users', [UsersController::class, 'index'])->name('users');
+        // GET /dashboard/users/create  → admin.users.create
+        Route::get('/users/create', [UsersController::class, 'createAdmin'])->name('users.create');
+        // POST /dashboard/users    → admin.users.store
+        Route::post('/users', [UsersController::class, 'storeAdmin'])->name('users.store');
+        // DELETE /dashboard/users/{user} → admin.users.destroy
+        Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
 
-// Rotas de logout
-Route::match(['get', 'post'], '/logout', [Controllers\AuthController::class, 'logout'])->middleware('auth')->name('logout');
+        // GET /dashboard/rooms     → admin.rooms
+        Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
+        // POST /dashboard/rooms    → admin.rooms.store
+        Route::post('/rooms', [RoomsController::class, 'store'])->name('rooms.store');
+        // DELETE /dashboard/rooms/{room} → admin.rooms.destroy
+        Route::delete('/rooms/{room}', [RoomsController::class, 'destroy'])->name('rooms.destroy');
+    });
 
-// Rotas de criação de usuário
-Route::post('/admin/users', [UsersController::class, 'storeAdmin'])->name('admin.users.store');
+// Logout (sessão web)
+Route::match(['get','post'], '/logout', [Controllers\AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
-// Resto das rotas...
+// Rotas de autenticação padrão (login/register) ficam em auth.php
 require __DIR__.'/auth.php';
