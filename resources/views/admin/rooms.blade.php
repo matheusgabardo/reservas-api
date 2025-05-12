@@ -3,7 +3,7 @@
         @if (session('status'))
             <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg flex justify-between items-center">
                 <span>{{ session('status') }}</span>
-                <button onclick="this.parentElement.style.display='none'" class="text-xl font-bold text-gray-600">&times;</button>
+                <button onclick="this.parentElement.style.display='none'" class="text-xl font-bold text-gray-600 cursor-pointer">&times;</button>
             </div>
         @endif
 
@@ -94,7 +94,7 @@
                 </div>
 
                 <div>
-                    <label for="location_name" class="block text-sm font-medium text-zinc-300 mb-1">Nome do sala</label>
+                    <label for="location_name" class="block text-sm font-medium text-zinc-300 mb-1">Nome do local</label>
                     <input type="text" name="location_name" id="location_name" required class="w-full px-4 py-2 bg-zinc-700 text-white border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
                 </div>
 
@@ -121,6 +121,7 @@
                 <div>
                     <label for="image" class="block text-sm font-medium text-zinc-300 mb-1">Imagem</label>
                     <input type="file" name="image" id="image" accept="image/*" class="w-full px-4 py-2 bg-zinc-700 text-white border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
+                    <small>Max: 2MB</small>
                 </div>
 
                 <div>

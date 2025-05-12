@@ -3,7 +3,7 @@
         @if (session('status'))
             <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg flex justify-between items-center">
                 <span>{{ session('status') }}</span>
-                <button onclick="this.parentElement.style.display='none'" class="text-xl font-bold text-gray-600">&times;</button>
+                <button onclick="this.parentElement.style.display='none'" class="text-xl font-bold text-gray-600 cursor-pointer">&times;</button>
             </div>
         @endif
     
