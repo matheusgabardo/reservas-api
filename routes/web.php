@@ -22,6 +22,8 @@ Route::middleware('auth')
         Route::get('/reservations', [ReservationsController::class, 'index'])->name('reservations');
         // DELETE /dashboard/reservations/{reservation} → admin.reservations.destroy
         Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('reservations.destroy');
+        // CHECKIN /dashboard/reservations/{reservation}/checkin → admin.reservations.checkin
+        Route::post('/reservations/{reservation}/checkin', [ReservationsController::class, 'checkin'])->name('reservations.checkin');
 
         // GET /dashboard/users     → admin.users
         Route::get('/users', [UsersController::class, 'index'])->name('users');

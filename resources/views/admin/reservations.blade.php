@@ -37,13 +37,22 @@
                                             {{ ucfirst($reservation->status) }}
                                         </span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="whitespace-nowrap px-6 py-4 flex gap-2">
                                         @if ($reservation->status === 'pendente')
+                                            <!-- Botão de Cancelar -->
                                             <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="px-4 py-1 rounded-sm bg-red-500 cursor-pointer hover:bg-red-700 text-white">
+                                                <button type="submit" class="px-4 py-1 rounded-sm bg-red-600 hover:bg-red-500 text-white cursor-pointer">
                                                     Cancelar
+                                                </button>
+                                            </form>
+                                    
+                                            <!-- Botão de Check-in -->
+                                            <form action="{{ route('admin.reservations.checkin', $reservation) }}" method="POST" onsubmit="return confirm('Confirmar check-in desta reserva?');">
+                                                @csrf
+                                                <button type="submit" class="px-4 py-1 rounded-sm bg-green-600 hover:bg-green-500 text-white cursor-pointer">
+                                                    Check-in
                                                 </button>
                                             </form>
                                         @else

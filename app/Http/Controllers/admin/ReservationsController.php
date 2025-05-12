@@ -29,8 +29,7 @@ class ReservationsController extends Controller
     //     // Redirecionar de volta para a página de reservas
     //     return redirect()->route('admin.reservations');
     // }
-    public function destroy(Reservation $reservation)
-    {
+    public function destroy(Reservation $reservation){
         if ($reservation->status !== 'pendente') {
             session()->flash('status', "A reserva {$reservation->id} não pode ser cancelada.");
             return redirect()->route('admin.reservations');
@@ -41,5 +40,18 @@ class ReservationsController extends Controller
         session()->flash('status', "Reserva {$reservation->id} cancelada com sucesso.");
         return redirect()->route('admin.reservations');
     }
+
+    public function checkin(Reservation $reservation){
+    if ($reservation->status !== 'pendente') {
+        session()->flash('status', "Check-in indisponível para a reserva: {$reservation->id}.");
+        return redirect()->route('admin.reservations');
+    }
+
+    $reservation->update(['status' => 'concluido']);
+
+    session()->flash('status', "Check-in realizado com sucesso para a reserva: {$reservation->id}.");
+    return redirect()->route('admin.reservations');
+}
+
 
 }
