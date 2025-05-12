@@ -45,7 +45,7 @@
                                     </td>
                                     
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <form action="{{ route('admin.rooms.destroy', $room) }}" method="POST" class="inline">
+                                        <form action="{{ route('admin.rooms.destroy', $room) }}" method="POST" class="inline" onclick="return confirm('Tem certeza que deseja excluir essa sala?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="px-4 py-1 rounded-sm bg-red-600 text-white cursor-pointer hover:bg-red-500">

@@ -14,19 +14,32 @@ class ReservationsController extends Controller
 
         return view('admin.reservations', compact('reservations'));
     }
+    // public function delete(Reservation $reservation)
+    // {
+    //     $reservationId = $reservation->id;
+    //     $reservationDate = $reservation->reservation_date;
+    //     $reservationTime = $reservation->reservation_time;
+
+    //     // Excluindo a reserva
+    //     $reservation->delete();
+        
+    //     // Exibindo mensagem de sucesso
+    //     session()->flash('status', "Reserva {$reservationId} para o dia {$reservationDate} às {$reservationTime} foi removida com sucesso.");
+
+    //     // Redirecionar de volta para a página de reservas
+    //     return redirect()->route('admin.reservations');
+    // }
     public function destroy(Reservation $reservation)
     {
-        $reservationId = $reservation->id;
-        $reservationDate = $reservation->reservation_date;
-        $reservationTime = $reservation->reservation_time;
+        if ($reservation->status !== 'pendente') {
+            session()->flash('status', "A reserva {$reservation->id} não pode ser cancelada.");
+            return redirect()->route('admin.reservations');
+        }
 
-        // Excluindo a reserva
-        $reservation->delete();
-        
-        // Exibindo mensagem de sucesso
-        session()->flash('status', "Reserva {$reservationId} para o dia {$reservationDate} às {$reservationTime} foi removida com sucesso.");
+        $reservation->update(['status' => 'cancelado']);
 
-        // Redirecionar de volta para a página de reservas
+        session()->flash('status', "Reserva {$reservation->id} cancelada com sucesso.");
         return redirect()->route('admin.reservations');
     }
+
 }

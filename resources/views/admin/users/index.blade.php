@@ -31,7 +31,7 @@
                                         <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="px-4 py-1 rounded-sm bg-stone-950 text-white hover:bg-stone-500 cursor-pointer">
+                                            <button type="submit" class="px-4 py-1 rounded-sm bg-stone-950 text-white hover:bg-stone-500 cursor-pointer" onclick="return confirm('Tem certeza que deseja excluir esse usuário?');">
                                                 Excluir
                                             </button>
                                         </form>

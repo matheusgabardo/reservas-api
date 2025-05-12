@@ -30,15 +30,26 @@
                                     <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->reservation_time }}</td>
                                     <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->user->name }}</td>
                                     <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->room->room_name }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">{{ $reservation->status }}</td>
-                                    <td class="whitespace-nowrap  px-6 py-4">
-                                        <!-- TODO ajustar reserva disponivel para cancelamento-->
-                                        <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="px-4 py-1 rounded-sm bg-red-500 cursor-pointer hover:bg-red-700">Cancelar</button>
-                                        </form>
+                                    <td class="px-6 py-4">
+                                        <span class="@if($reservation->status === 'cancelado') text-red-500 
+                                                     @elseif($reservation->status === 'concluido') text-green-600 
+                                                     @else text-blue-500 @endif">
+                                            {{ ucfirst($reservation->status) }}
+                                        </span>
                                     </td>
+                                    <td class="whitespace-nowrap px-6 py-4">
+                                        @if ($reservation->status === 'pendente')
+                                            <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="px-4 py-1 rounded-sm bg-red-500 cursor-pointer hover:bg-red-700 text-white">
+                                                    Cancelar
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-gray-500 italic">-</span>
+                                        @endif
+                                    </td>                                    
                                 </tr>
                             @endforeach
                         </tbody>
