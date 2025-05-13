@@ -35,14 +35,14 @@ class DatabaseSeeder extends Seeder
         ]);
         
         // Criando salas
-        Room::factory()->count(3)->create();
+        Room::factory()->count(6)->create();
 
         // Criando reservas associadas aos usuários e salas
-        Reservation::factory(3)->create(); // Cria 10 reservas aleatórias
+        Reservation::factory(5)->create();
 
         // Ou criando algumas manualmente para garantir o controle
-        $user1 = User::first(); // Obtém o primeiro usuário
-        $room1 = Room::first(); // Obtém a primeira sala
+        $user1 = User::first();
+        $room1 = Room::first();
 
         Reservation::create([
             'reservation_date' => now()->addDays(1)->toDateString(),
