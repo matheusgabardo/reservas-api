@@ -47,7 +47,19 @@ class ReservationController extends Controller
             'reservation_date'  => 'required|date',
             'reservation_time'  => 'required|date_format:H:i',
             'status'            => 'nullable|in:pendente,concluido,cancelado',
+        ], [
+            'room_id.required' => 'O campo sala é obrigatório.',
+            'room_id.exists' => 'A sala selecionada não existe.',
+            
+            'reservation_date.required' => 'A data da reserva é obrigatória.',
+            'reservation_date.date' => 'A data informada não é válida.',
+        
+            'reservation_time.required' => 'O horário da reserva é obrigatório.',
+            'reservation_time.date_format' => 'O horário deve estar no formato HH:MM (ex: 14:30).',
+        
+            'status.in' => 'O status deve ser pendente, concluído ou cancelado.',
         ]);
+        
     
         if (!Auth::check()) {
             return response()->json([
