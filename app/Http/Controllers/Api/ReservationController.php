@@ -139,4 +139,59 @@ class ReservationController extends Controller
             'message'   => 'Nenhuma reserva ativa encontrada.',
         ], 200);
     }
+
+    /**
+     * Cancela uma reserva pendente do usuário.
+     *
+     * @OA\Post(
+     *     path="/api/v1/reservations/cancel",
+     *     summary="Cancela uma reserva existente",
+     *     tags={"Reservas"},
+     *     security={{ "sanctum": {} }},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"id"},
+     *             @OA\Property(property="id", type="integer", example=9)
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Reserva cancelada",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Reserva cancelada com sucesso!"),
+     *             @OA\Property(property="reservation", ref="#/components/schemas/Reservation")
+     *         )
+     *     ),
+     *     @OA\Response(response=401, description="Não autenticado"),
+     *     @OA\Response(response=403, description="Reserva não pertence ao usuário ou já não está pendente")
+     * )
+     */
+    public function cancel(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:reservations,id',
+        ]);
+
+        if (! Auth::check()) {
+            return response()->json([
+                'message' => 'Usuário não autenticado.',
+            ], 401);
+        }
+
+        $reservation = Reservation::find($request->id);
+
+        // Verifica se a reserva pertence ao usuário e está pendente
+        if ($reservation->user_id !== Auth::id() || $reservation->status !== 'pendente') {
+            return response()->json([
+                'message' => 'Não autorizado a cancelar esta reserva.',
+            ], 403);
+        }
+
+        $reservation->status = 'cancelado';
+        $reservation->save();
+
+        return response()->json([
+            'message'      => 'Reserva cancelada com sucesso!',
+            'reservation' => $reservation,
+        ], 200);
+    }
 }

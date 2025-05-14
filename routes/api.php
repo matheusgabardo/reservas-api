@@ -17,6 +17,7 @@ Route::prefix('v1')->group(function(){
         Route::get('rooms',         [RoomController::class,'index']);
         Route::post('reservations', [ReservationController::class,'store']);
         Route::get('reservations/active', [ReservationController::class, 'active']);
+        Route::post('reservations/cancel', [ReservationController::class, 'cancel']);
 
     });
 });
