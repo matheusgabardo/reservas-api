@@ -268,7 +268,164 @@
                         }
                     },
                     "401": {
+                        "description": "Não autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não autenticado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Conflito de reserva",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Esta sala já está reservada para a data informada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/reservations/active": {
+            "get": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Verifica se o usuário possui reserva ativa",
+                "operationId": "6af9de76f8b96289813df0b63f0a772e",
+                "responses": {
+                    "200": {
+                        "description": "Nenhuma reserva ativa encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Nenhuma reserva ativa encontrada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não autenticado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Reserva ativa existente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Você já possui uma reserva ativa no sistema."
+                                        },
+                                        "reservation": {
+                                            "$ref": "#/components/schemas/Reservation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/reservations/cancel": {
+            "post": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Cancela uma reserva existente",
+                "description": "Cancela uma reserva pendente do usuário.",
+                "operationId": "a43cf022045b8aafcbadf70cd14ea353",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 9
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Reserva cancelada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reserva cancelada com sucesso!"
+                                        },
+                                        "reservation": {
+                                            "$ref": "#/components/schemas/Reservation"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
                         "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Reserva não pertence ao usuário ou já não está pendente"
                     }
                 },
                 "security": [
